@@ -3,13 +3,23 @@ import "./Expense.scss";
 import { IExpenseItem } from "../../models/ExpenseItem";
 import { Card } from "../UI/Card";
 import { ExpenseItem } from "./ExpenseItem";
+import { ExpenseFilter } from "./ExpenseFilter";
+import { useState } from "react";
 interface IExpenseProps {
   expenses: IExpenseItem[];
 }
 export const Expense = (props: IExpenseProps) => {
   const { expenses } = props;
+  const [filteredYear, setFilteredYear] = useState("2020");
+  const filterChangeHandler = (selectedYear: any) => {
+    setFilteredYear(selectedYear);
+  };
   return (
     <Card className="expenses">
+      <ExpenseFilter
+        selected={filteredYear}
+        onChangeFilter={filterChangeHandler}
+      />
       <ExpenseItem
         title={expenses[0].title}
         amount={expenses[0].amount}
